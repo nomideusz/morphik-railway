@@ -1,0 +1,118 @@
+# Morphik config for Railway. Morphik reads everything except secrets from this
+# file, so railway-entrypoint.sh fills the ${VARS} from the service variables
+# and writes it to /app/morphik.toml on every boot.
+
+[api]
+host = "0.0.0.0"
+port = ${PORT}
+reload = false
+
+[service]
+environment = "production"
+version = "unknown"
+enable_profiling = false
+
+[auth]
+jwt_algorithm = "HS256"
+bypass_auth_mode = false
+dev_user_id = "dev_user"
+
+# Model names are LiteLLM strings: "gpt-4.1-mini", "anthropic/claude-sonnet-4-5",
+# "openrouter/google/gemini-2.5-flash", ... LiteLLM picks the provider key
+# (OPENAI_API_KEY, ANTHROPIC_API_KEY, OPENROUTER_API_KEY) from the environment.
+[registered_models]
+chat = { model_name = "${MORPHIK_COMPLETION_MODEL}" }
+embedding = { model_name = "${MORPHIK_EMBEDDING_MODEL}" }
+
+[completion]
+model = "chat"
+default_max_tokens = "1000"
+default_temperature = 0.3
+
+[database]
+provider = "postgres"
+pool_size = 10
+max_overflow = 15
+pool_recycle = 3600
+pool_timeout = 10
+pool_pre_ping = true
+max_retries = 3
+retry_delay = 1.0
+
+[embedding]
+model = "embedding"
+dimensions = ${MORPHIK_EMBEDDING_DIMENSIONS}
+similarity_metric = "cosine"
+
+[parser]
+chunk_size = 6000
+chunk_overlap = 300
+use_contextual_chunking = false
+contextual_chunking_model = "chat"
+
+[parser.xml]
+max_tokens = 350
+preferred_unit_tags = ["SECTION", "Section", "Article", "clause"]
+ignore_tags = ["TOC", "INDEX"]
+
+[document_analysis]
+model = "chat"
+
+[parser.vision]
+model = "chat"
+frame_sample_rate = -1
+
+# The reranker is a local BGE model (GPU-sized); off.
+[reranker]
+use_reranker = false
+provider = "flag"
+model_name = "BAAI/bge-reranker-large"
+query_max_length = 256
+passage_max_length = 512
+use_fp16 = false
+device = "cpu"
+
+# API and worker are separate services, so files live in the Railway bucket.
+[storage]
+provider = "aws-s3"
+storage_path = "./storage"
+region = "${AWS_REGION}"
+bucket_name = "${S3_BUCKET}"
+s3_upload_concurrency = 16
+
+[vector_store]
+provider = "pgvector"
+
+[multivector_store]
+provider = "postgres"
+
+# Morphik's API connects with host/port only (no password), so Redis runs
+# without one on the private network.
+[redis]
+url = "redis://${REDIS_HOST}:6379/0"
+host = "${REDIS_HOST}"
+port = 6379
+
+[worker]
+arq_max_jobs = 1
+colpali_store_batch_size = 16
+
+[pdf]
+colpali_pdf_dpi = 150
+
+# ColPali needs a local multi-GB vision model (or Morphik's hosted API); off.
+[morphik]
+enable_colpali = false
+colpali_mode = "off"
+parser_mode = "local"
+mode = "self_hosted"
+secret_manager = "env"
+# Host put into the morphik:// URIs that /cloud/generate_uri hands out
+api_domain = "${MORPHIK_API_DOMAIN}"
+morphik_embedding_api_domain = ["http://localhost:6000"]
+
+[telemetry]
+service_name = "databridge-core"
+project_name = "oss_railway"
+upload_interval_hours = 4.0
+max_local_bytes = 1073741824

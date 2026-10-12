@@ -1,0 +1,9 @@
+{
+  "name": "Morphik | Multimodal Document RAG API with Postgres & pgvector",
+  "short_name": "Morphik RAG",
+  "description": "Document ingestion, search and RAG API on Postgres with pgvector",
+  "category": "AI/ML",
+  "image": "https://raw.githubusercontent.com/nomideusz/morphik-railway/main/icon.svg",
+  "card_desc": "Morphik: an open-source RAG backend for documents. Ingest PDFs, Office files and text, then search and ask questions over them through a REST API or the Python SDK, with any LiteLLM model.",
+  "deploy_marker": "nomideusz/morphik-railway"
+}
