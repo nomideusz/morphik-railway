@@ -1,6 +1,6 @@
 # Deploy and Host Morphik on Railway
 
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template/morphik-rag?utm_medium=integration&utm_source=button&utm_campaign=morphik-rag)
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template/morphik-rag?referralCode=sLjDXb&utm_medium=integration&utm_source=button&utm_campaign=morphik-rag)
 
 [Morphik](https://www.morphik.ai/) is an open-source RAG backend for documents: upload PDFs, Word, Excel and PowerPoint files, images and plain text, and Morphik parses, chunks and embeds them, then lets you search them and ask questions over them through a REST API or its Python and TypeScript SDKs, with metadata filters, folders and per-user scoping. This template runs the Morphik API and its ingestion worker with Postgres (pgvector), Redis and a Railway bucket for the files, and works with OpenAI, Anthropic, OpenRouter or any OpenAI-compatible endpoint through LiteLLM.
 
