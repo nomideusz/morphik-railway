@@ -47,7 +47,7 @@ curl -X POST https://<your-domain>/cloud/generate_uri \
   -d '{"name": "my-app", "user_id": "admin"}'
 ```
 
-The response holds a URI like `morphik://my-app:<token>@<your-domain>`. Pass the whole URI to the SDK (`Morphik("morphik://...")` in Python), or send `Authorization: Bearer <token>` to the REST API. Interactive API docs are at `/docs`. Each app gets its own token; to revoke one, use `POST /apps/rotate_token`. Rotating `JWT_SECRET_KEY` revokes every token at once.
+The response holds a URI like `morphik://my-app:<token>@<your-domain>`. Pass the whole URI to the SDK (`Morphik("morphik://...")` in Python), or send `Authorization: Bearer <token>` to the REST API. Interactive API docs are at `/docs`. Each app gets its own token and sees only its own documents; to revoke a token, call `POST /apps/rotate_token?app_name=<name>` with that token, which returns a new URI. Rotating `JWT_SECRET_KEY` revokes every token at once.
 
 **Try it.**
 
@@ -65,7 +65,7 @@ Ingestion runs in the background; `GET /documents/<id>/status` shows when a docu
 
 **Custom domain.** After adding one, set `MORPHIK_API_DOMAIN` to it so newly generated URIs point at it.
 
-**Resources.** Morphik's image is large (about 10 GB, it bundles PyTorch and document parsers), so it needs the Hobby plan or above: Trial and Free plans cap images at 4 GB, and the first build takes several minutes. In testing the API idled at about 0.9 GB of RAM and the worker at about 1.2 GB, rising to about 2 GB while parsing PDFs; with Postgres and Redis the stack idles at roughly 2.2 GB.
+**Resources.** Morphik's image is large (about 10 GB, it bundles PyTorch and document parsers), so it needs the Hobby plan or above: Trial and Free plans cap images at 4 GB, and the first build takes several minutes. On Railway the API idles at about 1.1 GB of RAM and the worker at about 1.1 GB, each rising to about 2 GB while parsing or answering; with Postgres and Redis the stack idles at roughly 2.3 GB.
 
 ## Why Deploy Morphik on Railway?
 
