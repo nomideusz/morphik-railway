@@ -6,7 +6,7 @@
   },
   "services": {
     "6c02e81b-826a-4a56-97f4-f0c75d43825c": {
-      "icon": "https://raw.githubusercontent.com/nomideusz/morphik-railway/main/icon.svg",
+      "icon": "https://raw.githubusercontent.com/two-workspaces/morphik/main/icon.svg",
       "name": "Morphik",
       "build": {},
       "deploy": {
@@ -16,7 +16,7 @@
         "restartPolicyMaxRetries": 10
       },
       "source": {
-        "repo": "https://github.com/nomideusz/morphik-railway",
+        "repo": "https://github.com/two-workspaces/morphik",
         "rootDirectory": null
       },
       "networking": {
@@ -138,7 +138,7 @@
       }
     },
     "d9496e43-2e0b-409e-be0f-9cf5241b07a0": {
-      "icon": "https://raw.githubusercontent.com/nomideusz/morphik-railway/main/icon.svg",
+      "icon": "https://raw.githubusercontent.com/two-workspaces/morphik/main/icon.svg",
       "name": "Morphik Worker",
       "build": {},
       "deploy": {
@@ -148,7 +148,7 @@
         "restartPolicyMaxRetries": 10
       },
       "source": {
-        "repo": "https://github.com/nomideusz/morphik-railway",
+        "repo": "https://github.com/two-workspaces/morphik",
         "rootDirectory": null
       },
       "networking": {

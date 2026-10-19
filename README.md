@@ -32,7 +32,7 @@ The stack is four services and a bucket: Morphik (the API), Morphik Worker, Post
 
 - [Morphik documentation](https://www.morphik.ai/docs)
 - [Morphik on GitHub](https://github.com/morphik-org/morphik-core)
-- [Template source on GitHub](https://github.com/nomideusz/morphik-railway)
+- [Template source on GitHub](https://github.com/two-workspaces/morphik)
 
 ### Implementation Details
 
